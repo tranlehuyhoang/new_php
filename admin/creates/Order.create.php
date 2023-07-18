@@ -1,5 +1,12 @@
 <?php
-include '../inc/header.php'
+include '../inc/header.php';
+$class = new user();
+$show = $class->show_user();
+
+$code = new order();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $codeinsert = $code->insert_order($_POST);
+}
 ?>
 
 
@@ -24,14 +31,18 @@ include '../inc/header.php'
                     <div class="card custom-card">
                         <div class="card-header justify-content-between">
                             <div class="card-title"> Create Order Form </div>
-
+                            <?php
+                            if (isset($codeinsert)) {
+                                echo $codeinsert;
+                            }
+                            ?>
 
                         </div>
                         <div class="card-body">
                             <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Chọn trạng thái
                                     mục
-                                </label> <select class="form-select" id="selectform" multiple=""
-                                    aria-label="multiple select example">
+                                </label> <select required name="orderstatus" class="form-select" id="selectform"
+                                    multiple="" aria-label="multiple select example">
 
                                     <option selected value="1">Chờ xác nhận</option>
                                     <option value="2">Mua thành công</option>
@@ -39,29 +50,33 @@ include '../inc/header.php'
                                 </select> </div>
                             <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Chọn User
                                     mục
-                                </label> <select class="form-select" id="selectform" multiple=""
-                                    aria-label="multiple select example">
-                                    <option selected="">
+                                </label> <select required name="orderuserid" class="form-select" id="selectform"
+                                    multiple="" aria-label="multiple select example">
 
-                                        Open this select menu
-                                    </option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <?php
+                                    if (isset($show)) {
+                                        if ($show && $show->num_rows > 0) {
+                                            $i = 0;
+                                            while ($result = $show->fetch_assoc()) {
+                                                # code...
+                                    ?>
+                                    <option value="<?php echo $result['userid']; ?>"><?php echo $result['userid']; ?> :
+                                        <?php echo $result['useremail']; ?> </option>
+
+                                    <?php
+                                                $i++;
+                                            }
+                                        } else {
+                                            ?>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                                 </select> </div>
                             <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Nhập tổng tiền
 
-                                </label> <input name="catName" type="number" class="form-control" id="form-text"
-                                    placeholder="">
+                                </label> <input required name="orderprice" type="number" class="form-control"
+                                    id="form-text" placeholder="">
                             </div>
 
                             <button class="btn btn-primary" type="submit">Save</button>

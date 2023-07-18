@@ -1,5 +1,14 @@
 <?php
-include '../inc/header.php'
+include '../inc/header.php';
+$class = new user();
+$show = $class->show_user();
+
+$code = new order();
+$catId = $_GET['editid'];
+$getcatbyid = $code->getorderbyid($catId);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $codeinsert = $code->update_order($_POST, $catId);
+}
 ?>
 
 
@@ -11,31 +20,88 @@ include '../inc/header.php'
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="catlist.php">Category</a></li>
+                        <li class="breadcrumb-item"><a href="catlist.php">Order</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Create</li>
                     </ol>
                 </nav>
             </div>
         </div> <!-- Page Header Close -->
         <!-- Start:: row-1 -->
+        <?php
+
+        if (isset($getcatbyid)) {
+            $results = $getcatbyid->fetch_assoc();
+            // echo  print_r($result);
+
+        ?>
         <form action="" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div class="card custom-card">
                         <div class="card-header justify-content-between">
-                            <div class="card-title"> Create Category Form </div>
+                            <div class="card-title"> Create Order Form </div>
                             <?php
-                            if (isset($insertCat)) {
-                                echo $insertCat;
-                            }
-                            ?>
+                                if (isset($codeinsert)) {
+                                    echo $codeinsert;
+                                }
+                                ?>
 
                         </div>
                         <div class="card-body">
-                            <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Nhập tên danh
+                            <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Chọn trạng thái
                                     mục
-                                </label> <input name="catName" type="text" class="form-control" id="form-text"
-                                    placeholder="">
+                                </label> <select required name="orderstatus" class="form-select" id="selectform"
+                                    multiple="" aria-label="multiple select example">
+
+                                    <option <?php
+
+                                                if ($results['orderstatus'] ==  1) {
+                                                    echo 'selected ';
+                                                }
+                                                ?> value="1">Chờ xác nhận</option>
+                                    <option <?php
+
+                                                if ($results['orderstatus'] ==  2) {
+                                                    echo 'selected ';
+                                                }
+                                                ?> value="2">Mua thành công</option>
+
+                                </select> </div>
+                            <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Chọn User
+                                    mục
+                                </label> <select required name="orderuserid" class="form-select" id="selectform"
+                                    multiple="" aria-label="multiple select example">
+
+                                    <?php
+                                        if (isset($show)) {
+                                            if ($show && $show->num_rows > 0) {
+                                                $i = 0;
+                                                while ($result = $show->fetch_assoc()) {
+                                                    # code...
+                                        ?>
+                                    <option <?php
+
+                                                            if ($results['orderuserid'] == $result['userid']) {
+                                                                echo 'selected ';
+                                                            }
+                                                            ?> value="<?php echo $result['userid']; ?>">
+                                        <?php echo $result['userid']; ?> :
+                                        <?php echo $result['useremail']; ?> </option>
+
+                                    <?php
+                                                    $i++;
+                                                }
+                                            } else {
+                                                ?>
+                                    <?php
+                                            }
+                                        }
+                                        ?>
+                                </select> </div>
+                            <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Nhập tổng tiền
+
+                                </label> <input value="<?php echo $results['orderprice']; ?>" name="orderprice"
+                                    type="number" class="form-control" id="form-text" placeholder="">
                             </div>
 
                             <button class="btn btn-primary" type="submit">Save</button>
@@ -43,10 +109,10 @@ include '../inc/header.php'
 
                     </div>
                 </div>
-
             </div>
         </form>
-
+        <?php
+        } ?>
     </div>
 </div>
 <!--APP-CONTENT CLOSE-->

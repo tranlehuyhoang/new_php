@@ -1,7 +1,14 @@
  <?php
 
     include __DIR__ .  '/../inc/Header.php';
+    $class = new order();
+    $show = $class->show_order();
 
+    if (isset($_GET['delid'])) {
+        $delid = $_GET['delid'];
+        $delete = $class->delete_order($delid);
+        $show = $class->show_order();
+    }
     ?>
 
  <div class="main-content app-content">
@@ -29,6 +36,11 @@
                          </div>
                      </div>
                      <div class="card-body">
+                         <?php
+                            if (isset($delete)) {
+                                echo $delete;
+                            }
+                            ?>
                          <table id="example" class="table table-striped" style="width:100%">
                              <thead>
                                  <tr>
@@ -41,32 +53,62 @@
                                  </tr>
                              </thead>
                              <tbody>
+                                 <?php
+                                    if (isset($show)) {
+                                        if ($show && $show->num_rows > 0) {
+                                            $i = 0;
+                                            while ($result = $show->fetch_assoc()) {
+                                                # code...
 
-                                 <tr>
-                                     <td>faewfaef </td>
-                                     <td>faewfaef </td>
-                                     <td>faewfaef </td>
-                                     <td>faewfaef </td>
-                                     <td>faewfaef</td>
-                                     <td>
-                                         <div class="d-flex gap-2">
-                                             <div class="edit">
-                                                 <a href=" ">
-                                                     <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
-                                                 </a>
-                                             </div>
-                                             <div class="remove">
-                                                 <a onclick="return confirm('Xác nhận xóa')" href=" ">
-                                                     <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
-                                                 </a>
-                                             </div>
-                                         </div>
+                                    ?>
+                                             <tr>
+                                                 <td><?php echo $result['orderid']; ?> </td>
+                                                 </td>
+                                                 <?php
+                                                    if ($result['orderstatus'] == 1) {
+                                                    ?>
+                                                     <td><span class="badge bg-light text-dark">Chờ xác nhận</span></td>
+
+                                                 <?php
+
+                                                    } else {
+                                                    ?>
+                                                     <td><span class="badge bg-success-transparent">Thành công</span></td>
+
+                                                 <?php
+                                                    }
+
+                                                    ?>
+                                                 <td><?php echo $result['useremail']; ?></td>
+                                                 <td>$<?php echo number_format($result['orderprice']); ?> </td>
+                                                 <td><?php echo $result['orderdate']; ?></td>
+                                                 <td>
+                                                     <div class="d-flex gap-2">
+                                                         <div class="edit">
+                                                             <a href="../edits/order.edit.php?editid=<?php echo $result['orderid']; ?>">
+                                                                 <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
+                                                             </a>
+                                                         </div>
+                                                         <div class="remove">
+                                                             <a onclick="return confirm('Xác nhận xóa')" href="?delid=<?php echo $result['orderid']; ?>">
+                                                                 <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                             </a>
+                                                         </div>
+                                                     </div>
 
 
-                                     </td>
+                                                 </td>
 
-                                 </tr>
-
+                                             </tr>
+                                         <?php
+                                                $i++;
+                                            }
+                                        } else {
+                                            ?>
+                                 <?php
+                                        }
+                                    }
+                                    ?>
                              </tbody>
 
                          </table>

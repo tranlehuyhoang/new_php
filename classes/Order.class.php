@@ -35,7 +35,7 @@ class order
         }
     }
 
-    public function show_user()
+    public function show_order()
     {
         $query = "SELECT tbl_orders.*,   tbl_users.*   
         FROM tbl_orders
@@ -47,7 +47,7 @@ class order
     }
 
 
-    public function update_user($data, $id)
+    public function update_order($data, $id)
     {
         $orderstatus = mysqli_real_escape_string($this->db->link, $data['orderstatus']);
         $orderuserid = mysqli_real_escape_string($this->db->link, $data['orderuserid']);
@@ -70,7 +70,7 @@ class order
             }
         }
     }
-    public function delete_user($id)
+    public function delete_order($id)
     {
         $id = mysqli_real_escape_string($this->db->link, $id);
         $query = "DELETE FROM tbl_orders WHERE orderid = '$id'";

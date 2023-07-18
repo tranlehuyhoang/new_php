@@ -1217,7 +1217,7 @@ include_once '../../classes/Wishlist.class.php';
                                                     <li class="slide"> <a href="../page/Contact.admin.php"
                                                             class="side-menu__item">Contact + </a> </li>
                                                     <li class="slide"> <a href="../page/Order.admin.php"
-                                                            class="side-menu__item ">Order</a> </li>
+                                                            class="side-menu__item ">Order + </a> </li>
                                                     <li class="slide"> <a href="../page/Product.admin.php"
                                                             class="side-menu__item">Products +</a> </li>
                                                     <li class="slide"> <a href="../page/Review.admin.php"
