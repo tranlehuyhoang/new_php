@@ -100,6 +100,22 @@ class user
 
         return $result;
     }
+    public function checklogin($id)
+    {
+
+
+        $query = "SELECT * FROM tbl_users WHERE userid = '$id'";
+        $result = $this->db->select($query);
+        if ($result) {
+            if ($result && $result->num_rows > 0) {
+                while ($resultss = $result->fetch_assoc()) {
+                    if ($resultss['userroles'] == 2) {
+                        header('Location:page/home.php');
+                    }
+                }
+            }
+        }
+    }
 
     public function login($data)
     {

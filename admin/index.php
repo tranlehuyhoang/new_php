@@ -2,11 +2,12 @@
 session_start();
 include_once  '../classes/User.class.php';
 
+$code = new user();
 
 if (isset($_SESSION['userid'])) {
     echo   $_SESSION['userid'];
+    $codeinsert = $code->checklogin($_SESSION['userid']);
 }
-$code = new user();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $codeinsert = $code->login($_POST);
 }
