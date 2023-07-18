@@ -14,7 +14,7 @@ include_once '../../classes/User.class.php';
 include_once '../../classes/Wishlist.class.php';
 ?>
 
-<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light"
+<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="dark" data-header-styles="dark"
     data-menu-styles="dark" data-vertical-style="overlay">
 
 <head>
@@ -608,51 +608,7 @@ include_once '../../classes/Wishlist.class.php';
                 <!-- Start::header-content-right -->
                 <div class="header-content-right">
                     <!-- Start::header-element -->
-                    <div class="header-element header-search">
-                        <!-- Start::header-link --> <a href="javascript:void(0);" class="header-link"
-                            data-bs-toggle="modal" data-bs-target="#searchModal"> <i
-                                class="bx bx-search-alt-2 header-link-icon"></i> </a>
-                        <!-- End::header-link -->
-                    </div> <!-- End::header-element -->
-                    <!-- Start::header-element -->
-                    <div class="header-element country-selector">
-                        <!-- Start::header-link|dropdown-toggle --> <a href="javascript:void(0);"
-                            class="header-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">
-                            <img src="../assets/images/flags/us_flag.jpg" alt="img" class="rounded-circle"> </a>
-                        <!-- End::header-link|dropdown-toggle -->
-                        <ul class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/us_flag.jpg" alt="img">
-                                    </span> English </a>
-                            </li>
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/spain_flag.jpg" alt="img"> </span>
-                                    Spanish </a>
-                            </li>
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/french_flag.jpg" alt="img"> </span>
-                                    French </a>
-                            </li>
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/germany_flag.jpg" alt="img"> </span>
-                                    German </a>
-                            </li>
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/italy_flag.jpg" alt="img"> </span>
-                                    Italian </a>
-                            </li>
-                            <li> <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-                                    <span class="avatar avatar-xs lh-1 me-2"> <img
-                                            src="../assets/images/flags/russia_flag.jpg" alt="img"> </span>
-                                    Russian </a>
-                            </li>
-                        </ul>
-                    </div> <!-- End::header-element -->
+
                     <!-- Start::header-element -->
                     <div class="header-element header-theme-mode">
                         <!-- Start::header-link|layout-setting --> <a href="javascript:void(0);"
@@ -666,11 +622,10 @@ include_once '../../classes/Wishlist.class.php';
                             </span> </a> <!-- End::header-link|layout-setting -->
                     </div> <!-- End::header-element -->
                     <!-- Start::header-element -->
-                    <div class="header-element cart-dropdown">
+                    <div class="header-element cart-dropdown" style="display: none;">
                         <!-- Start::header-link|dropdown-toggle --> <a href="javascript:void(0);"
                             class="header-link dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">
-                            <i class="bx bx-cart header-link-icon"></i> <span
-                                class="badge bg-primary rounded-pill header-icon-badge" id="cart-icon-badge">5</span>
+
                         </a> <!-- End::header-link|dropdown-toggle -->
                         <!-- Start::main-header-dropdown -->
                         <div class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
@@ -856,7 +811,7 @@ include_once '../../classes/Wishlist.class.php';
                         </div> <!-- End::main-header-dropdown -->
                     </div> <!-- End::header-element -->
                     <!-- Start::header-element -->
-                    <div class="header-element notifications-dropdown">
+                    <div class="header-element notifications-dropdown" style="display: none;">
                         <!-- Start::header-link|dropdown-toggle --> <a href="javascript:void(0);"
                             class="header-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                             id="messageDropdown" aria-expanded="false"> <i class="bx bx-bell header-link-icon"></i>
@@ -1028,7 +983,7 @@ include_once '../../classes/Wishlist.class.php';
                         </div> <!-- End::main-header-dropdown -->
                     </div> <!-- End::header-element -->
                     <!-- Start::header-element -->
-                    <div class="header-element header-shortcuts-dropdown">
+                    <div class="header-element header-shortcuts-dropdown" style="display: none;">
                         <!-- Start::header-link|dropdown-toggle --> <a href="javascript:void(0);"
                             class="header-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                             id="notificationDropdown" aria-expanded="false"> <i
@@ -1205,7 +1160,7 @@ include_once '../../classes/Wishlist.class.php';
             <div class="main-sidebar-header"> <a href="http://localhost/asm/" class="header-logo"> <img
                         src="../assets/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
                     <img src="../assets/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
-                    <img src="../assets/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark"> <img
+                    <img src="../ssss.png" alt="logo" class="desktop-dark"> <img
                         src="../assets/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark"> </a>
             </div>
             <!-- End::main-sidebar-header -->
@@ -1252,7 +1207,7 @@ include_once '../../classes/Wishlist.class.php';
                                                     <li class="slide"> <a href="../page/Blog.admin.php"
                                                             class="side-menu__item">Blogs + </a> </li>
                                                     <li class="slide"> <a href="../page/Cart.admin.php"
-                                                            class="side-menu__item">Carts</a> </li>
+                                                            class="side-menu__item">Carts +</a> </li>
                                                     <li class="slide"> <a href="../page/Category.admin.php"
                                                             class="side-menu__item">Category + </a> </li>
                                                     <li class="slide"> <a href="../page/Code.admin.php"

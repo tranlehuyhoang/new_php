@@ -32,22 +32,10 @@ include '../inc/header.php'
                                     mục
                                 </label> <select class="form-select" id="selectform" multiple=""
                                     aria-label="multiple select example">
-                                    <option selected="">
 
-                                        Open this select menu
-                                    </option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected value="1">Chờ xác nhận</option>
+                                    <option value="2">Mua thành công</option>
+
                                 </select> </div>
                             <div class="mb-3"> <label for="form-text" class="form-label fs-14 text-dark">Chọn User
                                     mục
