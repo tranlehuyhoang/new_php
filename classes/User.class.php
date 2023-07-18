@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . '/../lib/database.php';
 include_once __DIR__ . '/../helpers/format.php';
+
 ?>
 
 <?php
@@ -91,11 +92,42 @@ class user
         }
     }
     public function getuserbyid($id)
-
     {
+
+
         $query = "SELECT * FROM tbl_users WHERE userid = '$id'";
         $result = $this->db->select($query);
 
         return $result;
+    }
+
+    public function login($data)
+    {
+        $userpass = mysqli_real_escape_string($this->db->link, md5($data['userpass']));
+        $useremail = mysqli_real_escape_string($this->db->link, $data['useremail']);
+        $query = "SELECT * FROM tbl_users WHERE  userpass = '$userpass'AND useremail = '$useremail' ";
+        $result = $this->db->select($query);
+
+        if ($result) {
+            if ($result && $result->num_rows > 0) {
+                while ($resultss = $result->fetch_assoc()) {
+                    $_SESSION['userid'] = $resultss['userid'];
+                    if ($resultss['userroles'] == 2) {
+                        header('Location:page/home.php');
+                    }
+                }
+            }
+            $arlet = "<div class='alert alert-success' role='alert'>Login Successfully</div>";
+            return $arlet;
+        } else {
+            $arlet = "<div class='alert alert-danger' role='alert'>Login Error </div>";
+
+            return $arlet;
+        }
+    }
+    public function logout()
+    {
+        unset($_SESSION['userid']);
+        header('Location:../');
     }
 }

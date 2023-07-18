@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3309
--- Generation Time: Jul 17, 2023 at 06:33 PM
+-- Generation Time: Jul 18, 2023 at 09:54 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -84,6 +84,14 @@ CREATE TABLE `tbl_cart` (
   `cartdate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_cart`
+--
+
+INSERT INTO `tbl_cart` (`cartid`, `cartproductid`, `cartsession`, `cartquantity`, `cartuserid`, `cartstatus`, `cartdate`) VALUES
+(2, 5, '1', 1, 1, 2, '2023-07-18 06:21:08'),
+(3, 3, '100', 100, 6, 1, '2023-07-18 06:21:14');
+
 -- --------------------------------------------------------
 
 --
@@ -138,6 +146,15 @@ CREATE TABLE `tbl_compares` (
   `comparedate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_compares`
+--
+
+INSERT INTO `tbl_compares` (`compareid`, `compareuserid`, `compareproductid`, `comparedate`) VALUES
+(18, 9, 5, '2023-07-18 01:12:56'),
+(19, 3, 3, '2023-07-18 01:12:58'),
+(20, 9, 4, '2023-07-18 05:39:26');
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +188,14 @@ CREATE TABLE `tbl_orders` (
   `orderprice` int(225) NOT NULL,
   `orderdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_orders`
+--
+
+INSERT INTO `tbl_orders` (`orderid`, `orderstatus`, `orderuserid`, `orderprice`, `orderdate`) VALUES
+(2, 2, 6, 2312434, '2023-07-18 07:52:16'),
+(3, 2, 9, 123123, '2023-07-18 07:50:04');
 
 -- --------------------------------------------------------
 
@@ -247,7 +272,8 @@ INSERT INTO `tbl_users` (`userid`, `userroles`, `useremail`, `userpass`, `userda
 (1, 3, '2132@faewf', '9dd4e461268c8034f5c8564e155c67a6', '2023-07-17 00:02:03', '1@1'),
 (3, 2, '1faefaefaef123@11asss', '9dd4e461268c8034f5c8564e155c67a6', '2023-07-17 01:47:45', '1@1'),
 (6, 2, '123123@11', '9dd4e461268c8034f5c8564e155c67a6', '2023-07-17 01:48:23', '1@1'),
-(8, 2, '2508roblox@gmail.com', '9b70d37cab5c4e53dd2245037bc02418', '2023-07-17 15:22:14', '2508roblox');
+(8, 2, '2508roblox@gmail.com', '9b70d37cab5c4e53dd2245037bc02418', '2023-07-17 15:22:14', '2508roblox'),
+(9, 1, '432343525@324324324', '9dd4e461268c8034f5c8564e155c67a6', '2023-07-18 00:57:11', '1@1');
 
 -- --------------------------------------------------------
 
@@ -366,7 +392,7 @@ ALTER TABLE `tbl_blogs`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cartid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_category`
@@ -384,7 +410,7 @@ ALTER TABLE `tbl_code`
 -- AUTO_INCREMENT for table `tbl_compares`
 --
 ALTER TABLE `tbl_compares`
-  MODIFY `compareid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `compareid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_contacts`
@@ -396,7 +422,7 @@ ALTER TABLE `tbl_contacts`
 -- AUTO_INCREMENT for table `tbl_orders`
 --
 ALTER TABLE `tbl_orders`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -414,7 +440,7 @@ ALTER TABLE `tbl_reviews`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_wishlists`

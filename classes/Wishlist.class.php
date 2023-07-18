@@ -16,7 +16,6 @@ class wishlist
     public function insert_wishlist($data)
     {
         if (isset($data['wishlistuserid']) && isset($data['wishlistproductid'])) {
-            # code...
 
             $wishlistuserid = mysqli_real_escape_string($this->db->link, $data['wishlistuserid']);
             $wishlistproductid = mysqli_real_escape_string($this->db->link, $data['wishlistproductid']);
@@ -28,7 +27,7 @@ class wishlist
                 $check_register = "SELECT *
             FROM tbl_wishlists WHERE wishlistproductid = '$wishlistproductid' AND wishlistuserid = '$wishlistuserid' LIMIT 1";
                 $check = $this->db->select($check_register);
-                if (!isset($check)) {
+                if ($check && $check->num_rows > 0) {
                     $arlet = "<div class='alert alert-danger' role='alert'>Email exit</div>";
                     return $arlet;
                 } else {
