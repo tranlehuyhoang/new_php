@@ -253,14 +253,9 @@ include_once __DIR__ .  '/../classes/Wishlist.class.php';
                         <div class="col-12 position-static text-center">
                             <nav class="main-navigation">
                                 <ul class="mainmenu">
-                                    <li class="mainmenu__item active menu-item-has-children has-children">
+                                    <li class="mainmenu__item active  ">
                                         <a href="page/home.php" class="mainmenu__link">Home</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="page/home.php">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
-                                            <li><a href="index-3.html">Home 3</a></li>
-                                            <li><a href="index-4.html">Home 4</a></li>
-                                        </ul>
+
                                     </li>
 
 

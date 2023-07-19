@@ -70,9 +70,15 @@
                                  <p
                                      class="product-name fw-semibold mb-0 d-flex align-items-center justify-content-between">
                                      Name :
-                                     <?php echo  $result['productname']; ?><span
-                                         class="float-end text-warning fs-12">4.2<i
-                                             class="ri-star-s-fill align-middle ms-1 d-inline-block"></i></span></p>
+                                     <?php echo  $result['productname']; ?><span class="float-end text-warning fs-12">
+                                     </span></p>
+                                 <p
+                                     class="product-name fw-semibold mb-0 d-flex align-items-center justify-content-between">
+                                     Id :
+                                     <?php echo  $result['productid']; ?><span class="float-end text-warning fs-12">
+                                     </span></p>
+
+
                                  <p class="product-description fs-11 text-muted ">Description
                                      :<?php echo  $result['productdesc']; ?></p>
                                  <p class="product-description fs-11 text-muted ">Category :

@@ -97,4 +97,18 @@ class review
 
         return $result;
     }
+    public function getreviewbyproduct($id)
+
+    {
+        $query = "SELECT tbl_reviews.*, tbl_products.productimg, tbl_products.productid, tbl_users.username, tbl_users.useremail, tbl_users.userid   
+        FROM tbl_reviews
+        INNER JOIN tbl_products ON tbl_reviews.reviewproductid = tbl_products.productid
+        INNER JOIN tbl_users ON tbl_reviews.reviewuserid = tbl_users.userid
+        WHERE reviewproductid = '$id'
+        ORDER BY tbl_reviews.reviewid DESC;";
+
+        $result = $this->db->select($query);
+
+        return $result;
+    }
 }

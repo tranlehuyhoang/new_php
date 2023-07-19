@@ -23,6 +23,7 @@ if (isset($getcatbyid)) {
     // echo  print_r($result);
 
 ?>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0&appId=827255851653216&autoLogAppEvents=1" nonce="K6wo1X74"></script>
     <div class="main-content-wrapper">
         <div class="single-post-area pt--40 pb--80 pt-md--30 pb-md--60">
             <div class="container">
@@ -70,7 +71,7 @@ if (isset($getcatbyid)) {
                                                 admin
                                             </span>
 
-                                            <span class="post-date">Feb 02 2016</span>
+                                            <span class="post-date"><?php echo $result['blogdate'] ?></span>
                                         </div>
                                         <h2 class="post-title">Blog Gallery Post</h2>
                                     </header>
@@ -85,11 +86,35 @@ if (isset($getcatbyid)) {
                                         <span>/</span>
                                         <p class="post-tags">
                                             Tags:
-                                            <a href="#">HARDWARE,</a>
-                                            <a href="#">HIPSTER,</a>
-                                            <a href="#">LIGHT,</a>
-                                            <a href="#">MAC,</a>
-                                            <a href="#">VIDEO-2</a>
+                                            <a href="#">
+                                                <?php
+                                                if ($result['blogtagid'] == 1) {
+                                                    echo 'SảnPhẩm';
+                                                }
+                                                ?>
+                                                <?php
+                                                if ($result['blogtagid'] == 2) {
+                                                    echo 'KhuyếnMãi';
+                                                }
+                                                ?>
+                                                <?php
+                                                if ($result['blogtagid'] == 3) {
+                                                    echo 'MuaSắmOnline';
+                                                }
+                                                ?>
+                                                <?php
+                                                if ($result['blogtagid'] == 4) {
+                                                    echo 'ThanhToán';
+                                                }
+                                                ?>
+                                                <?php
+                                                if ($result['blogtagid'] == 5) {
+                                                    echo 'ĐánhGiá';
+                                                }
+                                                ?>
+
+                                            </a>
+
                                         </p>
                                     </div>
                                     <div class="social__sharing mb--30">
@@ -342,8 +367,8 @@ if (isset($getcatbyid)) {
                             <!-- Facebook Like Box Widget Start -->
                             <div class="sidebar-widget widget_fb_like_box">
                                 <h3 class="widget-title">Facebook Like Box</h3>
-                                <div class="fb-page">
-                                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhastechitlimited%2F&amp;tabs=timeline&amp;width=340&amp;height=500&amp;small_header=false&amp;adapt_container_width=false&amp;hide_cover=false&amp;show_facepile=true&amp;appId" height="280" style="border:none;overflow:hidden"></iframe>
+                                <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100093988191420" data-tabs="timeline" data-width="340" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+
                                 </div>
                             </div>
                             <!-- Facebook Like Box Widget End -->

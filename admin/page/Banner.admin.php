@@ -74,6 +74,8 @@
                                                              </div>
                                                          </div>
                                                          <p class="mb-2"><?php echo  $result['productdesc']; ?></p>
+                                                         <h7 class="fw-semibold mb-2">Id : <?php echo  $result['bannerid']; ?>
+                                                         </h7>
                                                          <h6 class="fw-semibold mb-2">Sale : <?php echo  $result['productsale']; ?>%
                                                          </h6>
                                                          <div class="d-flex align-items-center"> <span class="avatar avatar-sm avatar-rounded me-2"> <img src="<?php echo 'data:image/png;base64,' . base64_encode($result['productimg']); ?>" alt=""> </span>
