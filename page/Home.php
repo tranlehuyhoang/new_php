@@ -1,5 +1,23 @@
 <?php
 include __DIR__ . '/../inc/Header.php';
+$class = new banner();
+$show = $class->show_banner();
+
+$classs = new blog();
+$shows = $classs->show_blog();
+
+
+$cat = new category();
+$get = $cat->show_category();
+
+$gets = $cat->show_category();
+
+$classsss = new product();
+$showssss = $classsss->show_product();
+
+
+
+
 ?>
 
 <!-- Header Area End -->
@@ -10,25 +28,35 @@ include __DIR__ . '/../inc/Header.php';
 
     <div class="slider-area">
         <div class="homepage-slider">
+            <?php
+            if (isset($show)) {
+                if ($show && $show->num_rows > 0) {
+                    $i = 0;
+                    while ($result = $show->fetch_assoc()) {
+
+            ?>
             <!-- Single Slide Start -->
             <div class="single-slider content-v-center"
-                style="background-image: url(assets/img/slider/slider1-mirora1-1920x634.jpg)">
+                style="background-image: url(<?php echo 'data:image/png;base64,' . base64_encode($result['bannerimg']); ?>)">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider-content">
                                 <h5 data-animation="rollIn" data-duration=".8s" data-delay=".5s">Exclusive Offer
-                                    -20% Off This Week</h5>
-                                <h1 data-animation="fadeInDown" data-duration=".8s" data-delay=".2s">H-Vault
-                                    Classico</h1>
+                                    -<?php echo $result['productsale']; ?>% Off This Week</h5>
+                                <h1 data-animation="fadeInDown" data-duration=".8s" data-delay=".2s">
+                                    <?php echo $result['productname']; ?></h1>
                                 <p class="mb--30 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
                                     data-delay=".2s">H-Vault Watches Are A Lot Like Classic American Muscle Cars
                                     - Expect For The American Part That Is. </p>
                                 <p class="mb--50 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
-                                    data-delay=".2s">Starting At <strong>$1.499.00</strong></p>
+                                    data-delay=".2s">Starting At
+                                    <strong>$<?php echo number_format($result['productprice'] - ($result['productsale'] / 100 * $result['productprice'])); ?>.00</strong>
+                                </p>
                                 <div class="slide-btn-group" data-animation="fadeInUp" data-duration="1s"
                                     data-delay=".3s">
-                                    <a href="page/shop.php" class="btn btn-bordered btn-style-1">Shop Now</a>
+                                    <a href="page/ProductDetail.php?productid=<?php echo  $result['productid']; ?>"
+                                        class="btn btn-bordered btn-style-1">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -36,60 +64,15 @@ include __DIR__ . '/../inc/Header.php';
                 </div>
             </div>
             <!-- Single Slide End -->
-
-            <!-- Single Slide Start -->
-            <div class="single-slider content-v-center"
-                style="background-image: url(assets/img/slider/slider2-mirora1-1920x634.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-content">
-                                <h5 data-animation="rollIn" data-duration=".8s" data-delay=".5s">Exclusive Offer
-                                    -20% Off This Week</h5>
-                                <h1 data-animation="fadeInDown" data-duration=".8s" data-delay=".2s">H-Vault
-                                    Classico</h1>
-                                <p class="mb--30 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
-                                    data-delay=".2s">H-Vault Watches Are A Lot Like Classic American Muscle Cars
-                                    - Expect For The American Part That Is. </p>
-                                <p class="mb--50 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
-                                    data-delay=".2s">Starting At <strong>$1.499.00</strong></p>
-                                <div class="slide-btn-group" data-animation="fadeInUp" data-duration="1s"
-                                    data-delay=".3s">
-                                    <a href="page/shop.php" class="btn btn-bordered btn-style-1">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Slide End -->
-
-            <!-- Single Slide Start -->
-            <div class="single-slider content-v-center"
-                style="background-image: url(assets/img/slider/slider2-mirora1-1920x634.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-content">
-                                <h5 data-animation="rollIn" data-duration=".3s" data-delay=".5s">Exclusive Offer
-                                    -20% Off This Week</h5>
-                                <h1 data-animation="fadeInDown" data-duration=".8s" data-delay=".3s">H-Vault
-                                    Classico</h1>
-                                <p class="mb--30 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
-                                    data-delay=".3s">H-Vault Watches Are A Lot Like Classic American Muscle Cars
-                                    - Expect For The American Part That Is. </p>
-                                <p class="mb--50 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
-                                    data-delay=".3s">Starting At <strong>$1.499.00</strong></p>
-                                <div class="slide-btn-group" data-animation="fadeInUp" data-duration="1s"
-                                    data-delay=".3s">
-                                    <a href="page/shop.php" class="btn btn-bordered btn-style-1">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Slide End -->
+            <?php
+                        $i++;
+                    }
+                } else {
+                    ?>
+            <?php
+                }
+            }
+            ?>
         </div>
     </div>
 
@@ -158,2158 +141,207 @@ include __DIR__ . '/../inc/Header.php';
                     <ul class="nav nav-tabs product-tab__head" id="product-tab" role="tablist">
                         <li class="product-tab__item nav-item active">
                             <a class="product-tab__link nav-link active" id="nav-featured-tab" data-bs-toggle="tab"
-                                href="#nav-featured" role="tab" aria-selected="true">Featured</a>
+                                href="#nav-featured" role="tab" aria-selected="true">Mới nhất</a>
                         </li>
+                        <?php
+                        if (isset($get)) {
+                            if ($get && $get->num_rows > 0) {
+                                $i = 0;
+                                while ($result = $get->fetch_assoc()) {
+                                    # code...
+                        ?>
                         <li class="product-tab__item nav-item">
-                            <a class="product-tab__link nav-link" id="nav-new-tab" data-bs-toggle="tab" href="#nav-new"
-                                role="tab" aria-selected="false">New Arrivals</a>
+                            <a class="product-tab__link nav-link" id="nav-new-tab" data-bs-toggle="tab"
+                                href="#nav-<?php echo $result['categoryid'] ?>" role="tab"
+                                aria-selected="false"><?php echo $result['categoryname'] ?></a>
                         </li>
-                        <li class="product-tab__item nav-item">
-                            <a class="product-tab__link nav-link" id="nav-bestseller-tab" data-bs-toggle="tab"
-                                href="#nav-bestseller" role="tab" aria-selected="false">Bestseller</a>
-                        </li>
-                        <li class="product-tab__item nav-item">
-                            <a class="product-tab__link nav-link" id="nav-onsale-tab" data-bs-toggle="tab"
-                                href="#nav-onsale" role="tab" aria-selected="false">On Sale</a>
-                        </li>
+                        <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                        <?php
+                            }
+                        }
+                        ?>
+
                     </ul>
                     <div class="tab-content product-tab__content" id="product-tabContent">
                         <div class="tab-pane fade show active" id="nav-featured" role="tabpanel">
                             <div class="product-carousel js-product-carousel">
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/1-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/1-1-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 17</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
+                                <?php
+                                if (isset($showssss)) {
+                                    if ($showssss && $showssss->num_rows > 0) {
+                                        $i = 0;
+                                        while ($result = $showssss->fetch_assoc()) {
+                                            # code...
+                                ?>
+                                <div class="mirora-product">
+                                    <div class="product-img">
+                                        <img src="<?php echo 'data:image/png;base64,' . base64_encode($result['productimg']); ?>"
+                                            alt="Product" class="primary-image" />
+                                        <img src="<?php echo 'data:image/png;base64,' . base64_encode($result['productimg']); ?>"
+                                            alt="Product" class="secondary-image" />
+                                        <div class="product-img-overlay">
+                                            <span class="product-label discount">
+                                                -<?php echo $result['productsale']; ?>%
+                                            </span>
+                                            <a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>"
+                                                class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
+                                                View</a>
                                         </div>
                                     </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/2-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/2-2-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
+                                    <div class="product-content text-center">
+                                        <span><?php echo  $result['categoryname']; ?></span>
+                                        <h4><a
+                                                href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>"><?php echo  $result['productname']; ?></a>
+                                        </h4>
+                                        <div class="product-price-wrapper">
+                                            <span class="money">$
+                                                <?php echo  number_format($result['productprice'] - ($result['productsale'] / 100 * $result['productprice'])); ?>.00</span>
+                                            <span class="product-price-old">
+                                                <span
+                                                    class="money">$<?php echo number_format($result['productprice']) ?>.00</span>
+                                            </span>
                                         </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
+                                    </div>
+                                    <div class="mirora_product_action text-center position-absolute">
+                                        <div class="product-rating">
+                                            <span>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
                                         </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
+                                        <p>
+                                            Tồn kho : <?php echo  $result['productstock']; ?>
+                                        </p>
+                                        <div class="product-action">
+                                            <a class="same-action" href="wishlist.html" title="wishlist">
+                                                <i class="fa fa-heart-o"></i>
+                                            </a>
+                                            <a class="add_cart cart-item action-cart" href="cart.html"
+                                                title="wishlist"><span>Add to cart</span></a>
+                                            <a class="same-action compare-mrg" data-bs-toggle="modal"
+                                                data-bs-target="#productModal" href="compare.html">
+                                                <i class="fa fa-sliders fa-rotate-90"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/3-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/3-3-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/4-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/4-4-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/5-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/5-5-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/6-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/6-6-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/6-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/6-6-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/7-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/7-7-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/8-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/8-8-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/9-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/9-9-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <?php
+                                            $i++;
+                                        }
+                                    } else {
+                                        ?>
+                                <?php
+                                    }
+                                }
+                                ?>
+
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-new" role="tabpanel">
+                        <?php
+                        if (isset($gets)) {
+                            if ($gets && $gets->num_rows > 0) {
+                                $i = 0;
+                                while ($result = $gets->fetch_assoc()) {
+                                    # code...
+                        ?>
+
+
+
+                        <div class="tab-pane fade" id="nav-<?php echo $result['categoryid'] ?>" role="tabpanel">
                             <div class="product-carousel js-product-carousel">
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/10-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/10-10-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
+                                <?php
+                                            $getbycat = $classsss->getproductbycat($result['categoryid']);
+                                            ?>
+                                <?php
+                                            if (isset($getbycat)) {
+                                                if ($getbycat && $getbycat->num_rows > 0) {
+                                                    $i = 0;
+                                                    while ($result = $getbycat->fetch_assoc()) {
+                                                        # code...
+                                            ?>
+                                <div class="mirora-product">
+                                    <div class="product-img">
+                                        <img src="<?php echo 'data:image/png;base64,' . base64_encode($result['productimg']); ?>"
+                                            alt="Product" class="primary-image" />
+                                        <img src="<?php echo 'data:image/png;base64,' . base64_encode($result['productimg']); ?>"
+                                            alt="Product" class="secondary-image" />
+                                        <div class="product-img-overlay">
+                                            <span class="product-label discount">
+                                                -<?php echo $result['productsale']; ?>%
+                                            </span>
+                                            <a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>"
+                                                class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
+                                                View</a>
                                         </div>
                                     </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/11-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/11-11-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
+                                    <div class="product-content text-center">
+                                        <span>Cartier</span>
+                                        <h4><a
+                                                href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>"><?php echo  $result['productname']; ?></a>
+                                        </h4>
+                                        <div class="product-price-wrapper">
+                                            <span class="money">$
+                                                <?php echo  number_format($result['productprice'] - ($result['productsale'] / 100 * $result['productprice'])); ?>.00</span>
+                                            <span class="product-price-old">
+                                                <span
+                                                    class="money">$<?php echo number_format($result['productprice']) ?>.00</span>
+                                            </span>
                                         </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
+                                    </div>
+                                    <div class="mirora_product_action text-center position-absolute">
+                                        <div class="product-rating">
+                                            <span>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
                                         </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
+                                        <p>
+                                            Tồn kho : <?php echo  $result['productstock']; ?>
+                                        </p>
+                                        <div class="product-action">
+                                            <a class="same-action" href="wishlist.html" title="wishlist">
+                                                <i class="fa fa-heart-o"></i>
+                                            </a>
+                                            <a class="add_cart cart-item action-cart" href="cart.html"
+                                                title="wishlist"><span>Add to cart</span></a>
+                                            <a class="same-action compare-mrg" data-bs-toggle="modal"
+                                                data-bs-target="#productModal" href="compare.html">
+                                                <i class="fa fa-sliders fa-rotate-90"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/12-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/12-12-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/14-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/14-14-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/15-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/15-15-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/16-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/16-16-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/17-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/17-17-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/18-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/18-18-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/7-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/7-7-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/8-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/8-8-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <?php
+                                                        $i++;
+                                                    }
+                                                } else {
+                                                    ?>
+                                <?php
+                                                }
+                                            }
+                                            ?>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-bestseller" role="tabpanel">
-                            <div class="product-carousel js-product-carousel">
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/9-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/9-9-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/6-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/6-6-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/5-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/5-5-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/4-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/4-4-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/3-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/3-3-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/3-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/3-3-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/1-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/1-1-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/7-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/2-2-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/8-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/8-8-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/10-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/10-10-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-onsale" role="tabpanel">
-                            <div class="product-carousel js-product-carousel">
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/11-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/11-11-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/12-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/12-12-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/13-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/13-13-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/14-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/14-14-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/15-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/15-15-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/15-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/15-15-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/16-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/16-16-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/16-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/16-16-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-carousel-group">
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/17-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/17-17-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mirora-product">
-                                        <div class="product-img">
-                                            <img src="assets/img/products/18-450x450.jpg" alt="Product"
-                                                class="primary-image" />
-                                            <img src="assets/img/products/18-18-450x450.jpg" alt="Product"
-                                                class="secondary-image" />
-                                            <div class="product-img-overlay">
-                                                <span class="product-label discount">
-                                                    -7%
-                                                </span>
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Quick
-                                                    View</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-content text-center">
-                                            <span>Cartier</span>
-                                            <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$550.00</span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$700.00</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="mirora_product_action text-center position-absolute">
-                                            <div class="product-rating">
-                                                <span>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star theme-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </span>
-                                            </div>
-                                            <p>
-                                                It is a long established fact that a reader will be distracted
-                                                by the readable content...
-                                            </p>
-                                            <div class="product-action">
-                                                <a class="same-action" href="wishlist.html" title="wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                </a>
-                                                <a class="add_cart cart-item action-cart" href="cart.html"
-                                                    title="wishlist"><span>Add to cart</span></a>
-                                                <a class="same-action compare-mrg" data-bs-toggle="modal"
-                                                    data-bs-target="#productModal" href="compare.html">
-                                                    <i class="fa fa-sliders fa-rotate-90"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -2360,7 +392,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2410,7 +443,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2460,7 +494,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2510,7 +545,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2561,7 +597,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2612,7 +649,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2663,7 +701,8 @@ include __DIR__ . '/../inc/Header.php';
                             </div>
                             <div class="product-content text-center">
                                 <span>Cartier</span>
-                                <h4><a href="page/ProductDetail.php">Acer Aspire E 15</a></h4>
+                                <h4><a href="page/ProductDetail.php?productid=<?php echo $result['productid']; ?>">Acer
+                                        Aspire E 15</a></h4>
                                 <div class="product-price-wrapper">
                                     <span class="money">$550.00</span>
                                     <span class="product-price-old">
@@ -2720,86 +759,47 @@ include __DIR__ . '/../inc/Header.php';
             <div class="row">
                 <div class="col-12">
                     <div class="blog-carousel nav-top slick-item-gutter">
+                        <?php
+                        if (isset($shows)) {
+                            if ($shows && $shows->num_rows > 0) {
+                                $i = 0;
+                                while ($results = $shows->fetch_assoc()) {
+                                    # code...
+                        ?>
+
                         <article class="blog">
-                            <a href="blog-details-image.html" class="blog__thumb">
-                                <img src="assets/img/blog/post1-370x230.jpg" alt="Blog">
+                            <a href="page/blogdetail.php?blogid=<?php echo  $results['blogid']; ?>" class="blog__thumb">
+                                <img src="<?php echo 'data:image/png;base64,' . base64_encode($results['blogimg']); ?>"
+                                    alt="Blog">
                             </a>
                             <div class="blog__content">
                                 <div class="blog__meta">
-                                    <p class="blog__author">Post By: <a href="blog.html">HasTech</a></p>
-                                    <p class="blog__date"><a href="blog.html">20 Oct 2018</a></p>
+                                    <p class="blog__author">Post By: <a href="blog.html">Admin</a></p>
+                                    <p class="blog__date"><a href="blog.html"><?php echo  $results['blogdate']; ?></a>
+                                    </p>
                                 </div>
 
-                                <h3 class="blog__title"><a href="blog-details-image.html">Mollis aliquet ante,
-                                        suscipit non eget nulla libero, vestibulum condimentum.</a></h3>
+                                <h3 class="blog__title"><a
+                                        href="page/blogdetail.php?blogid=<?php echo  $results['blogid']; ?>"><?php echo  $results['blogtitle']; ?></a>
+                                </h3>
                                 <div class="blog__text">
-                                    <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram,
-                                        anteposuerit litterarum formas humanitatis per seacula.</p>
-                                    <a class="read-more" href="blog-details-image.html">Read More</a>
+                                    <p><?php echo  $results['blogheader']; ?></p>
+                                    <a class="read-more"
+                                        href="page/blogdetail.php?blogid=<?php echo  $results['blogid']; ?>">Read
+                                        More</a>
                                 </div>
 
                             </div>
                         </article>
-                        <article class="blog">
-                            <a href="blog-details-image.html" class="blog__thumb">
-                                <img src="assets/img/blog/post2-370x230.jpg" alt="Blog">
-                            </a>
-                            <div class="blog__content">
-                                <div class="blog__meta">
-                                    <p class="blog__author">Post By: <a href="blog.html">HasTech</a></p>
-                                    <p class="blog__date"><a href="blog.html">20 Oct 2018</a></p>
-                                </div>
-
-                                <h3 class="blog__title"><a href="blog-details-image.html">Mollis aliquet ante,
-                                        suscipit non eget nulla libero, vestibulum condimentum.</a></h3>
-                                <div class="blog__text">
-                                    <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram,
-                                        anteposuerit litterarum formas humanitatis per seacula.</p>
-                                    <a class="read-more" href="blog-details-image.html">Read More</a>
-                                </div>
-
-                            </div>
-                        </article>
-                        <article class="blog">
-                            <a href="blog-details-image.html" class="blog__thumb">
-                                <img src="assets/img/blog/post3-370x230.jpg" alt="Blog">
-                            </a>
-                            <div class="blog__content">
-                                <div class="blog__meta">
-                                    <p class="blog__author">Post By: <a href="blog.html">HasTech</a></p>
-                                    <p class="blog__date"><a href="blog.html">20 Oct 2018</a></p>
-                                </div>
-
-                                <h3 class="blog__title"><a href="blog-details-image.html">Mollis aliquet ante,
-                                        suscipit non eget nulla libero, vestibulum condimentum.</a></h3>
-                                <div class="blog__text">
-                                    <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram,
-                                        anteposuerit litterarum formas humanitatis per seacula.</p>
-                                    <a class="read-more" href="blog-details-image.html">Read More</a>
-                                </div>
-
-                            </div>
-                        </article>
-                        <article class="blog">
-                            <a href="blog-details-image.html" class="blog__thumb">
-                                <img src="assets/img/blog/post4-370x230.jpg" alt="Blog">
-                            </a>
-                            <div class="blog__content">
-                                <div class="blog__meta">
-                                    <p class="blog__author">Post By: <a href="blog.html">HasTech</a></p>
-                                    <p class="blog__date"><a href="blog.html">20 Oct 2018</a></p>
-                                </div>
-
-                                <h3 class="blog__title"><a href="blog-details-image.html">Mollis aliquet ante,
-                                        suscipit non eget nulla libero, vestibulum condimentum.</a></h3>
-                                <div class="blog__text">
-                                    <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram,
-                                        anteposuerit litterarum formas humanitatis per seacula.</p>
-                                    <a class="read-more" href="blog-details-image.html">Read More</a>
-                                </div>
-
-                            </div>
-                        </article>
+                        <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

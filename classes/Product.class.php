@@ -74,6 +74,13 @@ class product
 
         return $result;
     }
+    public function getproductbycat($id)
+    {
+        $query = "SELECT * FROM tbl_products WHERE productcat = '$id'";
+        $result = $this->db->select($query);
+
+        return $result;
+    }
 
 
     public function update_product($data, $id)
