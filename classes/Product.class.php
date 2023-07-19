@@ -65,6 +65,28 @@ class product
 
         return $result;
     }
+    public function show_productpricedes()
+    {
+        $query = "SELECT tbl_products.*, tbl_category.categoryname 
+        FROM tbl_products
+        INNER JOIN tbl_category ON tbl_products.productcat = tbl_category.categoryid
+        ORDER BY tbl_products.productprice DESC;";
+
+        $result = $this->db->select($query);
+
+        return $result;
+    }
+    public function show_productpriceasc()
+    {
+        $query = "SELECT tbl_products.*, tbl_category.categoryname 
+        FROM tbl_products
+        INNER JOIN tbl_category ON tbl_products.productcat = tbl_category.categoryid
+        ORDER BY tbl_products.productprice ASC;";
+
+        $result = $this->db->select($query);
+
+        return $result;
+    }
 
 
     public function getproductbyid($id)

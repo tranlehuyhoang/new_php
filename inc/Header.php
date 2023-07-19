@@ -27,7 +27,7 @@ include_once __DIR__ .  '/../classes/Wishlist.class.php';
     <link rel="apple-touch-icon" href="assets/img/icon.png">
 
     <!-- Title -->
-    <title>Mirora - Watch & Luxury Store Bootstrap 5 Template</title>
+    <title>PS26819 - Luxury Store </title>
 
     <!-- ************************* CSS Files ************************* -->
     <base href="http://localhost/asm/">

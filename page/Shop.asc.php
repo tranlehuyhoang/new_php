@@ -7,7 +7,7 @@ $get = $cat->show_category();
 $gets = $cat->show_category();
 
 $classsss = new product();
-$showssss = $classsss->show_product();
+$showssss = $classsss->show_productpriceasc();
 
 
 ?>
@@ -107,7 +107,6 @@ $showssss = $classsss->show_product();
 
                                         <option value="5">Price, high to low</option>
                                     </select>
-
                                 </div>
                             </div>
                             <!-- Shop Toolbar End -->
