@@ -1,4 +1,6 @@
 <?php
+
+
 include '../inc/Header.php';
 
 $cat = new product();
@@ -19,7 +21,10 @@ $getcatbyidssss4 = $review->getreviewbyproduct($catId);
 $getcatbyidssss5 = $review->getreviewbyproduct($catId);
 $getcatbyidssss7 = $review->getreviewbyproduct($catId);
 
-$name = '';
+$code = new cart();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart'])) {
+    $codeinsert = $code->add_cart($_POST);
+}
 
 ?>
 <!-- Header Area End -->
@@ -39,6 +44,11 @@ $name = '';
         </div>
     </div>
 </div>
+<?php
+if (isset($codeinsert)) {
+    echo $codeinsert;
+}
+?>
 <!-- Breadcumb area End -->
 
 <!-- Main Content Wrapper Start -->
@@ -213,21 +223,24 @@ $name = '';
 
                                     <p class="product-details-availability"><i class="fa fa-check-circle"></i><?php echo $result['productstock'] ?> In
                                         Stock</p>
-                                    <div class="product-details-action-wrapper mb--20">
-                                        <div class="product-details-action-top d-flex align-items-center mb--20">
-                                            <div class="quantity">
-                                                <span>Qty: </span>
-                                                <input type="number" class="quantity-input" name="qty" id="pro_qty" value="1" min="1">
+                                    <form action="" method="post">
+
+                                        <div class="product-details-action-wrapper mb--20">
+                                            <div class="product-details-action-top d-flex align-items-center mb--20">
+                                                <div class="quantity">
+                                                    <span>Qty: </span>
+                                                    <input type="number" class="quantity-input" name="cartquantity" id="pro_qty" value="1" min="1">
+                                                </div>
+                                                <button type="submit" name="cart" value="<?php echo $result['productid'] ?>" class="btn btn-medium btn-style-2 add-to-cart">
+                                                    Add To Cart
+                                                </button>
                                             </div>
-                                            <button type="button" class="btn btn-medium btn-style-2 add-to-cart">
-                                                Add To Cart
-                                            </button>
+                                            <div class="product-details-action-bottom">
+                                                <a href="wishlist.html">+Add to wishlist</a>
+                                                <a href="compare.html">+Add to compare</a>
+                                            </div>
                                         </div>
-                                        <div class="product-details-action-bottom">
-                                            <a href="wishlist.html">+Add to wishlist</a>
-                                            <a href="compare.html">+Add to compare</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                     <p class="product-details-tags">
                                         Tags: <a href="shop.html">Sport</a>,
                                         <a href="shop.html">Luxury</a>

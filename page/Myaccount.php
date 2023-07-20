@@ -26,7 +26,7 @@ include '../inc/Header.php';
                             <a class="nav-link" data-bs-toggle="pill" role="tab" href="#downloads" aria-controls="downloads" aria-selected="true">Downloads</a>
                             <a class="nav-link" data-bs-toggle="pill" role="tab" href="#addresses" aria-controls="addresses" aria-selected="true">Addresses</a>
                             <a class="nav-link" data-bs-toggle="pill" role="tab" href="#accountdetails" aria-controls="accountdetails" aria-selected="true">Account Details</a>
-                            <a class="nav-link" href="login-register.html">Logout</a>
+                            <a class="nav-link" href="?action=logout">Logout</a>
                         </div>
                     </div>
                     <div class="col-lg-8">

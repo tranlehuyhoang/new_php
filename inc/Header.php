@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once __DIR__ .  '/../classes/About.class.php';
 include_once __DIR__ .  '/../classes/Banner.class.php';
 include_once __DIR__ .  '/../classes/Blog.class.php';
@@ -12,6 +13,11 @@ include_once __DIR__ .  '/../classes/Product.class.php';
 include_once __DIR__ .  '/../classes/Review.class.php';
 include_once __DIR__ .  '/../classes/User.class.php';
 include_once __DIR__ .  '/../classes/Wishlist.class.php';
+
+$logout = new user();
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    $logout->logout();
+}
 ?>
 
 <!doctype html>

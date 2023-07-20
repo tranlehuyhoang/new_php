@@ -144,6 +144,26 @@ class user
     public function logout()
     {
         unset($_SESSION['userid']);
-        header('Location:../');
+    }
+    public function loginuser($data)
+    {
+        $userpass = mysqli_real_escape_string($this->db->link, md5($data['userpass']));
+        $useremail = mysqli_real_escape_string($this->db->link, $data['useremail']);
+        $query = "SELECT * FROM tbl_users WHERE  userpass = '$userpass'AND useremail = '$useremail' ";
+        $result = $this->db->select($query);
+
+        if ($result) {
+            if ($result && $result->num_rows > 0) {
+                while ($resultss = $result->fetch_assoc()) {
+                    $_SESSION['userid'] = $resultss['userid'];
+                }
+            }
+            $arlet = "<div class='alert alert-success' role='alert'>Login Successfully</div>";
+            return $arlet;
+        } else {
+            $arlet = "<div class='alert alert-danger' role='alert'>Login Error </div>";
+
+            return $arlet;
+        }
     }
 }

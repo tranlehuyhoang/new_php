@@ -36,6 +36,40 @@ class cart
             }
         }
     }
+    public function add_cart($data)
+    {
+
+        $cartproductid = mysqli_real_escape_string($this->db->link, $data['cart']);
+        $cartsession = session_id();
+        $cartquantity = mysqli_real_escape_string($this->db->link, $data['cartquantity']);
+        $cartuserid = mysqli_real_escape_string($this->db->link, $_SESSION['userid']);
+        $cartstatus = 1;
+
+        if ($cartproductid == '' || $cartsession == '' || $cartquantity == '' || $cartuserid == '' || $cartstatus == '') {
+
+            $arlet = "<div class='alert alert-danger' role='alert'>Code must not be empty</div>";
+            return $arlet;
+        } else {
+            $query = "SELECT * FROM tbl_cart WHERE cartproductid = '$cartproductid' AND cartuserid = '$cartuserid'";
+            $result = $this->db->select($query);
+
+            if ($result) {
+                $arlet = "<div class='alert alert-danger' role='alert'>Duplicate record found</div>";
+                return $arlet;
+            } else {
+                $query = "INSERT INTO tbl_cart(cartproductid,cartsession,cartquantity,cartuserid,cartstatus) VALUES ('$cartproductid','$cartsession','$cartquantity','$cartuserid','$cartstatus')";
+                $result = $this->db->insert($query);
+                if ($result) {
+
+                    $arlet = "<div class='alert alert-success' role='alert'>Insert Code Successfully</div>";
+                    return $arlet;
+                } else {
+                    $arlet = "<div class='alert alert-danger' role='alert'>Insert Code Successfully</div>";
+                    return $arlet;
+                }
+            }
+        }
+    }
     public function show_cart()
     {
         $query = "SELECT c.*, p.*, u.*, cat.*

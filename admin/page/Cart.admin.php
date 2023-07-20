@@ -95,7 +95,8 @@ if (isset($_GET['delid'])) {
                                         </td>
                                         <td>
                                             <div class="fs-14 fw-semibold">
-                                                $<?php echo $result['productprice'] * $result['cartquantity'] ?> </div>
+                                                $<?php echo ($result['productprice']  - ($result['productprice'] * $result['productsale'] / 100))  * $result['cartquantity']?>
+                                            </div>
                                         </td>
                                         <td>
                                             <div class="fw-semibold fs-14"> <?php echo $result['cartdate']; ?>
